@@ -92,6 +92,7 @@ public class StartupPage extends javax.swing.JFrame {
 
     private void doQuery_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doQuery_btnActionPerformed
         // TODO add your handling code here:
+        QueryProcessPage nextPage = new QueryProcessPage();
         
         FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Image file","bmp","jpg","png");
         Pilih_file.setFileFilter(textFilter);
@@ -99,6 +100,12 @@ public class StartupPage extends javax.swing.JFrame {
         Pilih_file.showOpenDialog(this);
         String file = Pilih_file.getSelectedFile().toString();
         System.out.println(file);
+        
+        nextPage.setImageDir(file);
+        nextPage.setVisible(true);
+        this.dispose();
+        
+        
         
     }//GEN-LAST:event_doQuery_btnActionPerformed
 
