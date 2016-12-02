@@ -1,3 +1,14 @@
+
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.border.Border;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +26,8 @@ public class QueryProcessPage extends javax.swing.JFrame {
      */
     public QueryProcessPage() {
         initComponents();
+        //Sets the frame position to the center of the screen.
+        this.setLocationRelativeTo(null);
         this.processProgress.setMinimum(0);
         this.processProgress.setMaximum(4);
         this.progressCounter = 0;
@@ -29,25 +42,28 @@ public class QueryProcessPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageDirTxtField = new javax.swing.JTextField();
         imageDirLabel = new javax.swing.JLabel();
         startBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
         processProgress = new javax.swing.JProgressBar();
         progressLabel = new javax.swing.JLabel();
         add = new javax.swing.JButton();
+        imagePosLabel = new javax.swing.JLabel();
+        imageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 0));
-        setPreferredSize(new java.awt.Dimension(600, 400));
-
-        imageDirTxtField.setEnabled(false);
 
         imageDirLabel.setText("Image Directory:");
 
         startBtn.setText("START");
 
-        jButton1.setText("CANCEL");
+        cancelBtn.setText("CANCEL");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
 
         progressLabel.setText("Progress :");
 
@@ -57,6 +73,10 @@ public class QueryProcessPage extends javax.swing.JFrame {
                 addActionPerformed(evt);
             }
         });
+
+        imagePosLabel.setText("[DIRECTORY HERE]");
+
+        imageLabel.setText("imageLabel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,11 +93,14 @@ public class QueryProcessPage extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(add)
                             .addComponent(imageDirLabel)
-                            .addComponent(imageDirTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(imagePosLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
                         .addComponent(startBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(cancelBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imageLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -86,22 +109,23 @@ public class QueryProcessPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(imageDirLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(imageDirTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(imageDirLabel)
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imagePosLabel))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(processProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(progressLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(add)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(imageLabel)
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,18 +136,45 @@ public class QueryProcessPage extends javax.swing.JFrame {
         this.processProgress.setValue(++progressCounter);
     }//GEN-LAST:event_addActionPerformed
 
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        // TODO add your handling code here:
+        new StartupPage().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
     public void setImageDir(String dir){
-        this.imageDirTxtField.setText(dir);
+        this.imagePosLabel.setText(dir);
+        BufferedImage rawIcon = null;
+        try{
+            rawIcon = ImageIO.read(new File(this.imagePosLabel.getText()));
+        } catch(IOException e){
+            System.out.println("Read Error!");
+            this.dispose();
+        }
+        
+        ImageIcon icon = new ImageIcon (rawIcon.getScaledInstance(240, 240, Image.SCALE_SMOOTH));
+        this.imageLabel.setIcon(icon);
+        
+        	        // create a line border with the specified color and width
+
+       Border border = BorderFactory.createLineBorder(Color.BLUE, 5);
+
+ 
+
+        // set the border of this componen
+        imageLabel.setBorder(border);
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
+    private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel imageDirLabel;
-    private javax.swing.JTextField imageDirTxtField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel imageLabel;
+    private javax.swing.JLabel imagePosLabel;
     private javax.swing.JProgressBar processProgress;
     private javax.swing.JLabel progressLabel;
     private javax.swing.JButton startBtn;

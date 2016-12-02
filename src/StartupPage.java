@@ -1,4 +1,6 @@
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
@@ -17,7 +19,10 @@ public class StartupPage extends javax.swing.JFrame {
      * Creates new form StartupPage
      */
     public StartupPage() {
-        initComponents();
+         initComponents();
+         
+        //Sets the frame position to the center of the screen.
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -36,6 +41,7 @@ public class StartupPage extends javax.swing.JFrame {
         teamName_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         doQuery_btn.setText("IDENTIFY IMAGE");
         doQuery_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -45,6 +51,11 @@ public class StartupPage extends javax.swing.JFrame {
         });
 
         manageImages_btn.setText("MANAGE DATABASE");
+        manageImages_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageImages_btnActionPerformed(evt);
+            }
+        });
 
         appTitle_label.setFont(new java.awt.Font("Source Sans Pro Semibold", 0, 24)); // NOI18N
         appTitle_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -58,20 +69,24 @@ public class StartupPage extends javax.swing.JFrame {
         teamName_label.setToolTipText("");
         teamName_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         teamName_label.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        teamName_label.setMaximumSize(new java.awt.Dimension(410, 300));
+        teamName_label.setMinimumSize(new java.awt.Dimension(410, 300));
+        teamName_label.setOpaque(true);
+        teamName_label.setPreferredSize(new java.awt.Dimension(410, 300));
         teamName_label.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(manageImages_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                    .addComponent(doQuery_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(112, 112, 112))
             .addComponent(appTitle_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(teamName_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(doQuery_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageImages_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +99,7 @@ public class StartupPage extends javax.swing.JFrame {
                 .addComponent(doQuery_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(manageImages_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
@@ -97,17 +112,23 @@ public class StartupPage extends javax.swing.JFrame {
         FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Image file","bmp","jpg","png");
         Pilih_file.setFileFilter(textFilter);
         Pilih_file.setSelectedFile(null);
-        Pilih_file.showOpenDialog(this);
-        String file = Pilih_file.getSelectedFile().toString();
-        System.out.println(file);
-        
-        nextPage.setImageDir(file);
-        nextPage.setVisible(true);
-        this.dispose();
-        
-        
+        int isset = Pilih_file.showOpenDialog(this);
+        if(isset == Pilih_file.APPROVE_OPTION) {
+            String file = Pilih_file.getSelectedFile().toString();
+            System.out.println(file);
+
+            nextPage.setImageDir(file);
+            nextPage.setVisible(true);
+            this.dispose();
+
+        }
         
     }//GEN-LAST:event_doQuery_btnActionPerformed
+
+    private void manageImages_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageImages_btnActionPerformed
+        new ManageDataPage().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_manageImages_btnActionPerformed
 
     /**
      * @param args the command line arguments
