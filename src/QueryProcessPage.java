@@ -148,15 +148,9 @@ public class QueryProcessPage extends javax.swing.JFrame {
     
     public void setImageDir(String dir){
         this.imagePosLabel.setText(dir);
-        BufferedImage rawIcon = null;
-        try{
-            rawIcon = ImageIO.read(new File(this.imagePosLabel.getText()));
-        } catch(IOException e){
-            System.out.println("Read Error!");
-            this.dispose();
-        }
+        BufferedImage rawIcon = CommonFunctions.getBufferedImage(dir);
         
-        ImageIcon icon = new ImageIcon (rawIcon.getScaledInstance(240, 240, Image.SCALE_SMOOTH));
+        ImageIcon icon = CommonFunctions.getIconInstance(rawIcon, 240, 240);
         this.imageLabel.setIcon(icon);
         
         	        // create a line border with the specified color and width

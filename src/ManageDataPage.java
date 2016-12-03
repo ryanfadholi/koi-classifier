@@ -34,6 +34,9 @@ public class ManageDataPage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         clsfTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        ClsfDetails = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +68,27 @@ public class ManageDataPage extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        ClsfDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("All Image Data"));
+
+        jButton2.setText("jButton2");
+
+        javax.swing.GroupLayout ClsfDetailsLayout = new javax.swing.GroupLayout(ClsfDetails);
+        ClsfDetails.setLayout(ClsfDetailsLayout);
+        ClsfDetailsLayout.setHorizontalGroup(
+            ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClsfDetailsLayout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        ClsfDetailsLayout.setVerticalGroup(
+            ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClsfDetailsLayout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addGap(0, 315, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout manageClsfPanelLayout = new javax.swing.GroupLayout(manageClsfPanel);
         manageClsfPanel.setLayout(manageClsfPanelLayout);
         manageClsfPanelLayout.setHorizontalGroup(
@@ -72,18 +96,29 @@ public class ManageDataPage extends javax.swing.JFrame {
             .addGroup(manageClsfPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(283, Short.MAX_VALUE))
+                    .addComponent(ClsfDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(manageClsfPanelLayout.createSequentialGroup()
+                        .addGroup(manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(manageClsfPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1))
+                        .addGap(0, 499, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         manageClsfPanelLayout.setVerticalGroup(
             manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(manageClsfPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(ClsfDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         mainTab.addTab("Manage Classification", manageClsfPanel);
@@ -142,8 +177,11 @@ public class ManageDataPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ClsfDetails;
     private javax.swing.JTable clsfTable;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane mainTab;
     private javax.swing.JPanel manageClsfPanel;

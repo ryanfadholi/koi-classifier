@@ -109,15 +109,9 @@ public class StartupPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         QueryProcessPage nextPage = new QueryProcessPage();
         
-        FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Image file","bmp","jpg","png");
-        Pilih_file.setFileFilter(textFilter);
-        Pilih_file.setSelectedFile(null);
-        int isset = Pilih_file.showOpenDialog(this);
-        if(isset == Pilih_file.APPROVE_OPTION) {
-            String file = Pilih_file.getSelectedFile().toString();
-            System.out.println(file);
-
-            nextPage.setImageDir(file);
+        String fileDir = CommonFunctions.browseImage_string();
+        if(!fileDir.equals("ERROR")) {
+            nextPage.setImageDir(fileDir);
             nextPage.setVisible(true);
             this.dispose();
 
