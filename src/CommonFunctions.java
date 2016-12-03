@@ -3,9 +3,12 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
@@ -20,6 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CommonFunctions {
     public static String img_dir = "C:\\ProgramData\\Koi-Classifier\\Images\\";
+    public static CKlasifikasi ck = new CKlasifikasi();
     
     public static String browseImage_string(){
         JFileChooser browser = new JFileChooser();
@@ -53,6 +57,7 @@ public class CommonFunctions {
         return result;
     }
     
+    
     public static ImageIcon getIconInstance(BufferedImage img){
         return new ImageIcon(img);
     }
@@ -61,4 +66,17 @@ public class CommonFunctions {
         return new ImageIcon(
                 img.getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
+    
+    public static int getNewImageID(){
+        return ck.getLastImgIncrement();
+    }
+    
+    public static void saveImage(BufferedImage img, String klasifikasi){
+        ck.InsertNewImage(klasifikasi, 0.5, 0.5, 0.5);
+    }
+    
+    public static int ConfirmationDialog(String message){
+        return JOptionPane.showConfirmDialog(null, message, "Confirm", JOptionPane.YES_NO_OPTION);
+    }
+   
 }

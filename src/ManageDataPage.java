@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +22,9 @@ public class ManageDataPage extends javax.swing.JFrame {
         initComponents();
         
         ck = new CKlasifikasi();
+        this.resetState();
+        
+        
     }
 
     /**
@@ -29,171 +36,282 @@ public class ManageDataPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainTab = new javax.swing.JTabbedPane();
-        manageClsfPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        clsfTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        clsfComboBox = new javax.swing.JComboBox<>();
+        addClsfBtn = new javax.swing.JButton();
+        clsfLabel = new javax.swing.JLabel();
         ClsfDetails = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        imageTable = new javax.swing.JTable();
+        imageDetails = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        deleteImageBtn = new javax.swing.JButton();
+        crudToolbar = new javax.swing.JPanel();
         addImageBtn = new javax.swing.JButton();
+        deleteClsfBtn = new javax.swing.JButton();
+        renameClsfBtn = new javax.swing.JButton();
+        closeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        clsfTable.setModel(new javax.swing.table.DefaultTableModel(
+        clsfComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL IMAGES" }));
+        clsfComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clsfComboBoxActionPerformed(evt);
+            }
+        });
+
+        addClsfBtn.setText("Add New Classification");
+
+        clsfLabel.setText("Classification:");
+
+        ClsfDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Data"));
+        ClsfDetails.setMinimumSize(new java.awt.Dimension(600, 320));
+        ClsfDetails.setPreferredSize(new java.awt.Dimension(600, 320));
+
+        imageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Classification"
+                "ImageID", "Classification", "Mean", "SD", "Title 5"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(clsfTable);
+        imageTable.setMinimumSize(new java.awt.Dimension(400, 256));
+        imageTable.setPreferredSize(new java.awt.Dimension(400, 256));
+        jScrollPane1.setViewportView(imageTable);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        imageDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Details"));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        deleteImageBtn.setText("Delete Image");
 
-        ClsfDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("All Image Data"));
-
-        addImageBtn.setText("add Image");
-        addImageBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addImageBtnActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout imageDetailsLayout = new javax.swing.GroupLayout(imageDetails);
+        imageDetails.setLayout(imageDetailsLayout);
+        imageDetailsLayout.setHorizontalGroup(
+            imageDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(deleteImageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        imageDetailsLayout.setVerticalGroup(
+            imageDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imageDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteImageBtn))
+        );
 
         javax.swing.GroupLayout ClsfDetailsLayout = new javax.swing.GroupLayout(ClsfDetails);
         ClsfDetails.setLayout(ClsfDetailsLayout);
         ClsfDetailsLayout.setHorizontalGroup(
             ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ClsfDetailsLayout.createSequentialGroup()
-                .addComponent(addImageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(imageDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ClsfDetailsLayout.setVerticalGroup(
             ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ClsfDetailsLayout.createSequentialGroup()
-                .addComponent(addImageBtn)
-                .addGap(0, 315, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imageDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout manageClsfPanelLayout = new javax.swing.GroupLayout(manageClsfPanel);
-        manageClsfPanel.setLayout(manageClsfPanelLayout);
-        manageClsfPanelLayout.setHorizontalGroup(
-            manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manageClsfPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ClsfDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(manageClsfPanelLayout.createSequentialGroup()
-                        .addGroup(manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(manageClsfPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1))
-                        .addGap(0, 200, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        manageClsfPanelLayout.setVerticalGroup(
-            manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manageClsfPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(manageClsfPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        crudToolbar.setBorder(javax.swing.BorderFactory.createTitledBorder("Classification Toolbar"));
+
+        addImageBtn.setText("Insert New Image");
+        addImageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addImageBtnActionPerformed(evt);
+            }
+        });
+
+        deleteClsfBtn.setText("Delete This Classification");
+        deleteClsfBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteClsfBtnActionPerformed(evt);
+            }
+        });
+
+        renameClsfBtn.setText("Rename This Classification");
+
+        javax.swing.GroupLayout crudToolbarLayout = new javax.swing.GroupLayout(crudToolbar);
+        crudToolbar.setLayout(crudToolbarLayout);
+        crudToolbarLayout.setHorizontalGroup(
+            crudToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(crudToolbarLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(addImageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(ClsfDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(deleteClsfBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(renameClsfBtn)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        crudToolbarLayout.setVerticalGroup(
+            crudToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(crudToolbarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(crudToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addImageBtn)
+                    .addComponent(deleteClsfBtn)
+                    .addComponent(renameClsfBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainTab.addTab("Manage Classification", manageClsfPanel);
+        closeBtn.setText("CLOSE");
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainTab, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(closeBtn))
+                    .addComponent(ClsfDetails, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 590, Short.MAX_VALUE)
+                    .addComponent(crudToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(clsfLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clsfComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addClsfBtn)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainTab, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clsfLabel)
+                    .addComponent(clsfComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addClsfBtn))
+                .addGap(18, 18, 18)
+                .addComponent(crudToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ClsfDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(closeBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        clsfTable.setModel(this.ck.getKlasifikasiModel());
-        System.out.println(this.ck.getLastImgIncrement());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void deleteClsfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteClsfBtnActionPerformed
+        String context = this.clsfComboBox.getSelectedItem().toString(); 
+        String confirmationMsg = "Apakah anda yakin ingin menghapus klasifikasi " 
+                + context + "?";
+        
+           if(CommonFunctions.ConfirmationDialog(confirmationMsg) != 0){
+               return;
+           }
+           
+           ck.deleteKlasifikasi(context);
+           this.resetState();
+    }//GEN-LAST:event_deleteClsfBtnActionPerformed
 
     private void addImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageBtnActionPerformed
         new ImageAddDialog(CommonFunctions.browseImage_bufferedImage()).setVisible(true);
     }//GEN-LAST:event_addImageBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageDataPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageDataPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageDataPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageDataPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void clsfComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clsfComboBoxActionPerformed
+        
+        //If the combo box is being refreshed, abort
+        if(this.clsfComboBox.getItemCount() == 0){
+            return;
         }
-        //</editor-fold>
+      
+        String currentChoice = this.clsfComboBox.getSelectedItem().toString();
+        if(currentChoice.equals("ALL IMAGES")){
+            refreshImageList();
+            this.setState(false);
+        } else {
+            refreshImageList(currentChoice);
+            this.setState(true);
+        }
+    }//GEN-LAST:event_clsfComboBoxActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageDataPage().setVisible(true);
-            }
-        });
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
+        this.resetState();
+    }//GEN-LAST:event_closeBtnActionPerformed
+    
+    private void resetState(){
+        this.refreshImageList();
+        this.refreshClassificationList();
+        this.setState(false);
     }
-
+    
+    private void setState(boolean isChosen){
+        this.addImageBtn.setEnabled(isChosen);
+        this.deleteClsfBtn.setEnabled(isChosen);
+        this.renameClsfBtn.setEnabled(isChosen);
+        this.imageDetails.setVisible(isChosen);
+        this.deleteImageBtn.setEnabled(false);
+    }
+    
+    private void refreshClassificationList(){
+        this.clsfComboBox.removeAllItems();
+        this.clsfComboBox.addItem("ALL IMAGES");
+        //Add Classification as comboBox values
+        ArrayList<String> comboValues = ck.getKlasifikasiArray();
+       
+        //Load Image Table
+        this.imageTable.setModel(ck.getImages());
+        
+        
+        for(String clsf : comboValues){
+            this.clsfComboBox.addItem(clsf);
+        }
+        
+        this.clsfComboBox.setSelectedIndex(0);
+    }
+    
+    private void refreshImageList(){
+        this.imageTable.setModel(ck.getImages());
+    }
+    
+    private void refreshImageList(String clsf){
+        this.imageTable.setModel(ck.getImages(clsf));
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClsfDetails;
+    private javax.swing.JButton addClsfBtn;
     private javax.swing.JButton addImageBtn;
-    private javax.swing.JTable clsfTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton closeBtn;
+    private javax.swing.JComboBox<String> clsfComboBox;
+    private javax.swing.JLabel clsfLabel;
+    private javax.swing.JPanel crudToolbar;
+    private javax.swing.JButton deleteClsfBtn;
+    private javax.swing.JButton deleteImageBtn;
+    private javax.swing.JPanel imageDetails;
+    private javax.swing.JTable imageTable;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane mainTab;
-    private javax.swing.JPanel manageClsfPanel;
+    private javax.swing.JButton renameClsfBtn;
     // End of variables declaration//GEN-END:variables
 }

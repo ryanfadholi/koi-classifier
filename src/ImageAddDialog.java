@@ -1,5 +1,8 @@
 
+import Koneksi.EKoneksi;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /*
@@ -15,11 +18,13 @@ import javax.imageio.ImageIO;
 public class ImageAddDialog extends javax.swing.JFrame {
 
     private BufferedImage image;
+    private CKlasifikasi ck;
     /**
      * Creates new form ImageAddDialog
      */
     public ImageAddDialog(BufferedImage img) {
         initComponents();
+        this.ck = new CKlasifikasi();
         this.image = img;
         this.imageLabel.setIcon(
                 CommonFunctions.getIconInstance((img),
@@ -41,7 +46,7 @@ public class ImageAddDialog extends javax.swing.JFrame {
         yesBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         confirmationLabel.setText("Do you really want to add this image?");
 
@@ -53,6 +58,11 @@ public class ImageAddDialog extends javax.swing.JFrame {
         });
 
         cancelBtn.setText("CANCEL");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,9 +100,22 @@ public class ImageAddDialog extends javax.swing.JFrame {
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
         // TODO add your handling code here:
-//        ImageIO.write(image, formatName, output)
+       CommonFunctions.saveImage(this.image, "Kohaku");
+       File temp = new File(CommonFunctions.img_dir + "/" + CommonFunctions.getNewImageID() + ".png");
+       
+       try {
+            ImageIO.write(image, "PNG", temp);
+       } catch(IOException e){
+           System.out.println(e);
+           this.dispose();
+       }
+       
         System.out.println(CommonFunctions.img_dir);
     }//GEN-LAST:event_yesBtnActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
