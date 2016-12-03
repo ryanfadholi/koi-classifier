@@ -3,6 +3,7 @@ import Koneksi.EKoneksi;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -20,7 +21,7 @@ public class CKlasifikasi {
       String klasifikasi;
       int jumlah;
       
-      public DefaultTableModel getDataDebitur()
+      public DefaultTableModel getKlasifikasiModel()
     {
         String ColName[] = {"klasifikasi"};
         DefaultTableModel TbModel = new DefaultTableModel(ColName, 0);
@@ -39,6 +40,26 @@ public class CKlasifikasi {
             e.printStackTrace();
         }
         return TbModel;
+    }
+      
+    public ArrayList<String> getKlasifikasiArray()
+    {
+        ArrayList<String> result = new ArrayList<String>();
+        try
+        {
+            Statement S = c.getConnection().createStatement();
+            ResultSet R = S.executeQuery("SELECT * FROM klasifikasi");
+            R.first();
+            do
+            {
+                result.add(R.getString("nama_klasifikasi"));
+            } while(R.next());
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return result;
     }
     
 }

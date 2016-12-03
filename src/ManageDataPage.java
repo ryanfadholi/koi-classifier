@@ -103,7 +103,7 @@ public class ManageDataPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        clsfTable.setModel(this.ck.getDataDebitur());
+        clsfTable.setModel(this.ck.getKlasifikasiModel());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
