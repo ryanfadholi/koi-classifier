@@ -36,6 +36,10 @@ public class CommonFunctions {
         return "ERROR";
     }
     
+    public static BufferedImage browseImage_bufferedImage(){
+        return getBufferedImage(browseImage_string());
+    }
+    
     public static BufferedImage getBufferedImage(String dir){
         BufferedImage result = null;
         try{

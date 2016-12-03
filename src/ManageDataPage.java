@@ -36,7 +36,7 @@ public class ManageDataPage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         ClsfDetails = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        addImageBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,20 +72,25 @@ public class ManageDataPage extends javax.swing.JFrame {
 
         ClsfDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("All Image Data"));
 
-        jButton2.setText("jButton2");
+        addImageBtn.setText("add Image");
+        addImageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addImageBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ClsfDetailsLayout = new javax.swing.GroupLayout(ClsfDetails);
         ClsfDetails.setLayout(ClsfDetailsLayout);
         ClsfDetailsLayout.setHorizontalGroup(
             ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ClsfDetailsLayout.createSequentialGroup()
-                .addComponent(jButton2)
+                .addComponent(addImageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         ClsfDetailsLayout.setVerticalGroup(
             ClsfDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ClsfDetailsLayout.createSequentialGroup()
-                .addComponent(jButton2)
+                .addComponent(addImageBtn)
                 .addGap(0, 315, Short.MAX_VALUE))
         );
 
@@ -104,7 +109,7 @@ public class ManageDataPage extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton1))
-                        .addGap(0, 499, Short.MAX_VALUE)))
+                        .addGap(0, 200, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         manageClsfPanelLayout.setVerticalGroup(
@@ -140,6 +145,10 @@ public class ManageDataPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         clsfTable.setModel(this.ck.getKlasifikasiModel());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageBtnActionPerformed
+        new ImageAddDialog(CommonFunctions.browseImage_bufferedImage()).setVisible(true);
+    }//GEN-LAST:event_addImageBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,9 +187,9 @@ public class ManageDataPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClsfDetails;
+    private javax.swing.JButton addImageBtn;
     private javax.swing.JTable clsfTable;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane mainTab;
