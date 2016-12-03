@@ -19,6 +19,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Ryan Fadholi
  */
 public class CommonFunctions {
+    public static String img_dir = "C:\\ProgramData\\Koi-Classifier\\Images\\";
+    
     public static String browseImage_string(){
         JFileChooser browser = new JFileChooser();
         FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Image file","bmp","jpg","png");

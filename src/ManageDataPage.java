@@ -144,6 +144,7 @@ public class ManageDataPage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         clsfTable.setModel(this.ck.getKlasifikasiModel());
+        System.out.println(this.ck.getLastImgIncrement());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageBtnActionPerformed

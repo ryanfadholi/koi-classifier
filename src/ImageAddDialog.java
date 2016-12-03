@@ -1,5 +1,6 @@
 
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,11 +14,13 @@ import java.awt.image.BufferedImage;
  */
 public class ImageAddDialog extends javax.swing.JFrame {
 
+    private BufferedImage image;
     /**
      * Creates new form ImageAddDialog
      */
     public ImageAddDialog(BufferedImage img) {
         initComponents();
+        this.image = img;
         this.imageLabel.setIcon(
                 CommonFunctions.getIconInstance((img),
                                                 this.imageLabel.getWidth(), 
@@ -63,9 +66,9 @@ public class ImageAddDialog extends javax.swing.JFrame {
                         .addComponent(yesBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelBtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +90,8 @@ public class ImageAddDialog extends javax.swing.JFrame {
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
         // TODO add your handling code here:
-        
+//        ImageIO.write(image, formatName, output)
+        System.out.println(CommonFunctions.img_dir);
     }//GEN-LAST:event_yesBtnActionPerformed
 
 

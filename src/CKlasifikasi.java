@@ -62,4 +62,19 @@ public class CKlasifikasi {
         return result;
     }
     
+    public int getLastImgIncrement(){
+        int result = 0;
+        try
+        {
+            Statement S = c.getConnection().createStatement();
+            ResultSet R = S.executeQuery("SELECT * FROM images ORDER BY img_url DESC");
+            R.first();
+            result = Integer.parseInt(R.getString("img_url"));
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
