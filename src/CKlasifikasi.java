@@ -36,6 +36,20 @@ public class CKlasifikasi {
             }
       }
       
+      public void deleteImage(String imageID){
+        try
+            {
+                
+                Statement st = EKoneksi.getConnection().createStatement();
+                st.executeUpdate("DELETE FROM klasifikasi WHERE img_url='"+imageID+"'");
+           
+                JOptionPane.showMessageDialog(null, "Citra " +imageID+ " successfully deleted.");
+            }catch (SQLException e)
+            {
+                JOptionPane.showMessageDialog(null, e);
+            }
+      }
+      
       public DefaultTableModel getImages(){
             String ColName[] = {"ImageID","Klasifikasi","Mean","Standar Deviasi","Entropy"};
             DefaultTableModel TbModel = new DefaultTableModel(ColName, 0);
@@ -120,8 +134,6 @@ public class CKlasifikasi {
             R.first();
             do
             {
-                System.out.println("TEST");
-                System.out.println(R.getString("nama_klasifikasi"));
                 result.add(R.getString("nama_klasifikasi"));
             } while(R.next());
         }

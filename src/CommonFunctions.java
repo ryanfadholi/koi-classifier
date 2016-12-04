@@ -57,6 +57,9 @@ public class CommonFunctions {
         return result;
     }
     
+    public static File getImageDir(String imageName){
+        return new File(CommonFunctions.img_dir + "/" + imageName + ".png");
+    }
     
     public static ImageIcon getIconInstance(BufferedImage img){
         return new ImageIcon(img);

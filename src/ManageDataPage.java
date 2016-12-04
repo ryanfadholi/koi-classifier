@@ -43,7 +43,7 @@ public class ManageDataPage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         imageTable = new javax.swing.JTable();
         imageDetails = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        imageData = new javax.swing.JLabel();
         deleteImageBtn = new javax.swing.JButton();
         crudToolbar = new javax.swing.JPanel();
         addImageBtn = new javax.swing.JButton();
@@ -61,6 +61,11 @@ public class ManageDataPage extends javax.swing.JFrame {
         });
 
         addClsfBtn.setText("Add New Classification");
+        addClsfBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addClsfBtnActionPerformed(evt);
+            }
+        });
 
         clsfLabel.setText("Classification:");
 
@@ -89,23 +94,33 @@ public class ManageDataPage extends javax.swing.JFrame {
         });
         imageTable.setMinimumSize(new java.awt.Dimension(400, 256));
         imageTable.setPreferredSize(new java.awt.Dimension(400, 256));
+        imageTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(imageTable);
 
         imageDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Details"));
 
         deleteImageBtn.setText("Delete Image");
+        deleteImageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteImageBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout imageDetailsLayout = new javax.swing.GroupLayout(imageDetails);
         imageDetails.setLayout(imageDetailsLayout);
         imageDetailsLayout.setHorizontalGroup(
             imageDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(deleteImageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(imageData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         imageDetailsLayout.setVerticalGroup(
             imageDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imageDetailsLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imageData, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteImageBtn))
         );
@@ -258,6 +273,42 @@ public class ManageDataPage extends javax.swing.JFrame {
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         this.resetState();
     }//GEN-LAST:event_closeBtnActionPerformed
+
+    private void addClsfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClsfBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addClsfBtnActionPerformed
+
+    private void imageTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageTableMouseClicked
+        int row =this.imageTable.getSelectedRow();
+        
+        String imageID = this.imageTable.getModel().getValueAt(row, 0).toString();
+        String fileDir = CommonFunctions.getImageDir(imageID).toString();
+        
+        System.out.println(fileDir);
+        this.imageData.setIcon(
+                CommonFunctions.getIconInstance(CommonFunctions.getBufferedImage(fileDir),
+                                                this.imageData.getWidth(), 
+                                                this.imageData.getHeight()));
+        
+        this.deleteImageBtn.setEnabled(true);
+    }//GEN-LAST:event_imageTableMouseClicked
+
+    private void deleteImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageBtnActionPerformed
+        int row =this.imageTable.getSelectedRow();
+        
+        String imageID = this.imageTable.getModel().getValueAt(row, 0).toString();
+        String fileDir = CommonFunctions.getImageDir(imageID).toString();
+        
+        String confirmationMsg = "Apakah anda yakin ingin menghapus citra " 
+                + fileDir + "?";
+        
+        if(CommonFunctions.ConfirmationDialog(confirmationMsg) != 0){
+            return;
+        }
+        
+        
+           
+    }//GEN-LAST:event_deleteImageBtnActionPerformed
     
     private void resetState(){
         this.refreshImageList();
@@ -269,7 +320,6 @@ public class ManageDataPage extends javax.swing.JFrame {
         this.addImageBtn.setEnabled(isChosen);
         this.deleteClsfBtn.setEnabled(isChosen);
         this.renameClsfBtn.setEnabled(isChosen);
-        this.imageDetails.setVisible(isChosen);
         this.deleteImageBtn.setEnabled(false);
     }
     
@@ -292,10 +342,14 @@ public class ManageDataPage extends javax.swing.JFrame {
     
     private void refreshImageList(){
         this.imageTable.setModel(ck.getImages());
+        this.imageData.setIcon(null);
+        this.deleteImageBtn.setEnabled(false);
     }
     
     private void refreshImageList(String clsf){
         this.imageTable.setModel(ck.getImages(clsf));
+        this.imageData.setIcon(null);
+        this.deleteImageBtn.setEnabled(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -308,9 +362,9 @@ public class ManageDataPage extends javax.swing.JFrame {
     private javax.swing.JPanel crudToolbar;
     private javax.swing.JButton deleteClsfBtn;
     private javax.swing.JButton deleteImageBtn;
+    private javax.swing.JLabel imageData;
     private javax.swing.JPanel imageDetails;
     private javax.swing.JTable imageTable;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton renameClsfBtn;
     // End of variables declaration//GEN-END:variables

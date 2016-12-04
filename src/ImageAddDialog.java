@@ -101,7 +101,7 @@ public class ImageAddDialog extends javax.swing.JFrame {
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
         // TODO add your handling code here:
        CommonFunctions.saveImage(this.image, "Kohaku");
-       File temp = new File(CommonFunctions.img_dir + "/" + CommonFunctions.getNewImageID() + ".png");
+       File temp = CommonFunctions.getImageDir(String.valueOf(CommonFunctions.getNewImageID()));
        
        try {
             ImageIO.write(image, "PNG", temp);
