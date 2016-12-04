@@ -120,7 +120,8 @@ public class ImageAddDialog extends javax.swing.JDialog {
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
         // TODO add your handling code here:
-       CommonFunctions.saveImage(this.image, this.clsf);
+       CommonFunctions.saveImage(CommonFunctions.extractImage(this.image),
+                                this.clsf);
        File temp = CommonFunctions.getImageDir(String.valueOf(CommonFunctions.getNewImageID()));
        
        try {

@@ -22,6 +22,31 @@ public class CKlasifikasi {
       String klasifikasi;
       int jumlah;
       
+      public ArrayList<DataCitra> getAllImageData(){
+          ArrayList<DataCitra> result = new ArrayList<>();
+        try
+        {
+            Statement S = c.getConnection().createStatement();
+            ResultSet R = S.executeQuery("SELECT * FROM images");
+            R.first();
+            do
+            {
+                result.add(new DataCitra(R.getString("img_url"), 
+                                         R.getString("klasifikasi"), 
+                                         Double.parseDouble(R.getString("mean")),
+                                         Double.parseDouble(R.getString("standard_deviasi")),
+                                         Double.parseDouble(R.getString("entropy")))
+                                        );
+            } while(R.next());
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return result;
+      }
+      
       public void deleteKlasifikasi(String name){
         try
             {

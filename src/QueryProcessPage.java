@@ -4,10 +4,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.border.Border;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,7 +20,8 @@ import javax.swing.border.Border;
  * @author Ryan Fadholi
  */
 public class QueryProcessPage extends javax.swing.JFrame {
-    private int progressCounter;
+    private DataCitra dataQuery;
+    private CKlasifikasi ck;
     /**
      * Creates new form QueryProcessPage
      */
@@ -28,9 +29,8 @@ public class QueryProcessPage extends javax.swing.JFrame {
         initComponents();
         //Sets the frame position to the center of the screen.
         this.setLocationRelativeTo(null);
-        this.processProgress.setMinimum(0);
-        this.processProgress.setMaximum(4);
-        this.progressCounter = 0;
+        this.ck = new CKlasifikasi();
+        this.classifiedPanel.setVisible(false);
     }
 
     /**
@@ -42,21 +42,25 @@ public class QueryProcessPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageDirLabel = new javax.swing.JLabel();
         startBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
-        processProgress = new javax.swing.JProgressBar();
-        progressLabel = new javax.swing.JLabel();
-        add = new javax.swing.JButton();
-        imagePosLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         imageLabel = new javax.swing.JLabel();
+        classifiedPanel = new javax.swing.JPanel();
+        classified = new javax.swing.JLabel();
+        imageDir = new javax.swing.JPanel();
+        imagePosLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600, 0));
-
-        imageDirLabel.setText("Image Directory:");
+        setMinimumSize(new java.awt.Dimension(520, 320));
+        setPreferredSize(new java.awt.Dimension(520, 320));
 
         startBtn.setText("START");
+        startBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startBtnActionPerformed(evt);
+            }
+        });
 
         cancelBtn.setText("CANCEL");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -65,18 +69,63 @@ public class QueryProcessPage extends javax.swing.JFrame {
             }
         });
 
-        progressLabel.setText("Progress :");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Query Image"));
 
-        add.setText("add");
-        add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        classifiedPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Classification Result"));
+        classifiedPanel.setMinimumSize(new java.awt.Dimension(298, 40));
+
+        classified.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        classified.setText("[INSERT CLASSIFICATION HERE]");
+
+        javax.swing.GroupLayout classifiedPanelLayout = new javax.swing.GroupLayout(classifiedPanel);
+        classifiedPanel.setLayout(classifiedPanelLayout);
+        classifiedPanelLayout.setHorizontalGroup(
+            classifiedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(classifiedPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(classified)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        classifiedPanelLayout.setVerticalGroup(
+            classifiedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(classified, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
+        imageDir.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Directory"));
+        imageDir.setMinimumSize(new java.awt.Dimension(298, 37));
+        imageDir.setPreferredSize(new java.awt.Dimension(298, 37));
 
         imagePosLabel.setText("[DIRECTORY HERE]");
 
-        imageLabel.setText("imageLabel");
+        javax.swing.GroupLayout imageDirLayout = new javax.swing.GroupLayout(imageDir);
+        imageDir.setLayout(imageDirLayout);
+        imageDirLayout.setHorizontalGroup(
+            imageDirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imageDirLayout.createSequentialGroup()
+                .addComponent(imagePosLabel)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        imageDirLayout.setVerticalGroup(
+            imageDirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imagePosLabel)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,56 +134,36 @@ public class QueryProcessPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(classifiedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(progressLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(processProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(add)
-                            .addComponent(imageDirLabel)
-                            .addComponent(imagePosLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
                         .addComponent(startBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(imageLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(cancelBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(imageDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(imageDirLabel)
-                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(imageDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(classifiedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(imagePosLabel))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(processProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(progressLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(add)
-                .addGap(18, 18, 18)
-                .addComponent(imageLabel)
-                .addContainerGap(242, Short.MAX_VALUE))
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        // TODO add your handling code here:
-        this.processProgress.setValue(++progressCounter);
-    }//GEN-LAST:event_addActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
@@ -142,35 +171,68 @@ public class QueryProcessPage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
+    private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
+        ArrayList<DataCitra> dbData = ck.getAllImageData();
+        ArrayList<DataEuclidean> euclidResults = new ArrayList<>();
+        
+        String hasilKlasifikasi;
+        double closestMatch;
+        
+        for(DataCitra data : dbData){
+            System.out.println("DATA OF IMAGE " + data.getImageID());
+            euclidResults.add(new DataEuclidean(data.getImageID(),
+                                                data.getKlasifikasi(),
+                                                CommonFunctions.calculateEuclid(this.dataQuery, data)));
+            System.out.println(CommonFunctions.calculateEuclid(this.dataQuery, data));
+        }
+        
+        hasilKlasifikasi = euclidResults.get(0).getKlasifikasi();
+        closestMatch = euclidResults.get(0).getValue();
+        
+        for(DataEuclidean result : euclidResults){
+            if(result.getValue() < closestMatch){
+                System.out.println(result.getValue() + " lebih kecil dari " + closestMatch);
+                hasilKlasifikasi = result.getKlasifikasi();
+            }
+        }
+        
+        if(closestMatch <= 5.0){
+            this.classified.setText(hasilKlasifikasi);
+        } else {
+            this.classified.setText("UNCLASSIFIED");
+        }
+        
+        System.out.println(hasilKlasifikasi);
+        this.classifiedPanel.setVisible(true);
+        this.startBtn.setEnabled(false);
+        this.cancelBtn.setText("CLOSE");
+        
+    }//GEN-LAST:event_startBtnActionPerformed
+
     public void setImageDir(String dir){
         this.imagePosLabel.setText(dir);
         BufferedImage rawIcon = CommonFunctions.getBufferedImage(dir);
-        
-        ImageIcon icon = CommonFunctions.getIconInstance(rawIcon, 240, 240);
+        ImageIcon icon = CommonFunctions.getIconInstance(rawIcon, 
+                                                            this.imageLabel.getWidth(),
+                                                            this.imageLabel.getHeight());
         this.imageLabel.setIcon(icon);
         
-        	        // create a line border with the specified color and width
-
-       Border border = BorderFactory.createLineBorder(Color.BLUE, 5);
-
- 
-
-        // set the border of this componen
-        imageLabel.setBorder(border);
-
+        ArrayList<Double> queryValues = CommonFunctions.extractImage(rawIcon);
+        this.dataQuery = new DataCitra(queryValues.get(0), queryValues.get(1), queryValues.get(2));
+        System.out.println("Hitung Semua:");
+        System.out.println("Mean:" + queryValues.get(0));
+        System.out.println("SD:" + queryValues.get(1));
+        System.out.println("Entropy:" + queryValues.get(2) );
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add;
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JLabel imageDirLabel;
+    private javax.swing.JLabel classified;
+    private javax.swing.JPanel classifiedPanel;
+    private javax.swing.JPanel imageDir;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JLabel imagePosLabel;
-    private javax.swing.JProgressBar processProgress;
-    private javax.swing.JLabel progressLabel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton startBtn;
     // End of variables declaration//GEN-END:variables
 
