@@ -15,15 +15,22 @@ import javax.imageio.ImageIO;
  *
  * @author Ryan Fadholi
  */
-public class ImageAddDialog extends javax.swing.JFrame {
+public class ImageAddDialog extends javax.swing.JDialog {
 
     private BufferedImage image;
+    private String clsf;
     private CKlasifikasi ck;
     /**
      * Creates new form ImageAddDialog
      */
-    public ImageAddDialog(BufferedImage img) {
+    public ImageAddDialog(String clsf, BufferedImage img) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setModal(true);
+        
+        this.clsf = clsf;
+        this.contextLabel.setText(clsf);
+        
         this.ck = new CKlasifikasi();
         this.image = img;
         this.imageLabel.setIcon(
@@ -45,24 +52,31 @@ public class ImageAddDialog extends javax.swing.JFrame {
         confirmationLabel = new javax.swing.JLabel();
         yesBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        clsfLabel = new javax.swing.JLabel();
+        contextLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         confirmationLabel.setText("Do you really want to add this image?");
 
-        yesBtn.setText("YES");
+        yesBtn.setText("Confirm");
         yesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 yesBtnActionPerformed(evt);
             }
         });
 
-        cancelBtn.setText("CANCEL");
+        cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
             }
         });
+
+        clsfLabel.setText("Classification:");
+
+        contextLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        contextLabel.setText("[CLASSIFICATION NAME GOES HERE]");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,8 +89,10 @@ public class ImageAddDialog extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(yesBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelBtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(cancelBtn))
+                    .addComponent(clsfLabel)
+                    .addComponent(contextLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -86,8 +102,12 @@ public class ImageAddDialog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(confirmationLabel)
+                        .addGap(26, 26, 26)
+                        .addComponent(clsfLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contextLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(yesBtn)
@@ -100,7 +120,7 @@ public class ImageAddDialog extends javax.swing.JFrame {
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
         // TODO add your handling code here:
-       CommonFunctions.saveImage(this.image, "Kohaku");
+       CommonFunctions.saveImage(this.image, this.clsf);
        File temp = CommonFunctions.getImageDir(String.valueOf(CommonFunctions.getNewImageID()));
        
        try {
@@ -110,7 +130,7 @@ public class ImageAddDialog extends javax.swing.JFrame {
            this.dispose();
        }
        
-        System.out.println(CommonFunctions.img_dir);
+       this.dispose();
     }//GEN-LAST:event_yesBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -120,7 +140,9 @@ public class ImageAddDialog extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
+    private javax.swing.JLabel clsfLabel;
     private javax.swing.JLabel confirmationLabel;
+    private javax.swing.JLabel contextLabel;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JButton yesBtn;
     // End of variables declaration//GEN-END:variables

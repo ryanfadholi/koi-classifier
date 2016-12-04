@@ -29,7 +29,7 @@ public class CKlasifikasi {
                 Statement st = EKoneksi.getConnection().createStatement();
                 st.executeUpdate("DELETE FROM klasifikasi WHERE nama_klasifikasi='"+name+"'");
            
-                JOptionPane.showMessageDialog(null, name + " successfully deleted.");
+                JOptionPane.showMessageDialog(null, name + " berhasil dihapus.");
             }catch (SQLException e)
             {
                 JOptionPane.showMessageDialog(null, e);
@@ -43,7 +43,7 @@ public class CKlasifikasi {
                 Statement st = EKoneksi.getConnection().createStatement();
                 st.executeUpdate("DELETE FROM images WHERE img_url='"+imageID+"'");
            
-                JOptionPane.showMessageDialog(null, "Citra " +imageID+ " successfully deleted.");
+                JOptionPane.showMessageDialog(null, "Citra " +imageID+ " berhasil dihapus.");
             }catch (SQLException e)
             {
                 JOptionPane.showMessageDialog(null, e);
@@ -159,18 +159,17 @@ public class CKlasifikasi {
                     }
     }
      
-    public void InsertNewClassification(String klsf, double mean, double sd, double entr){
+    public void InsertNewClassification(String name){
 
         try
             {                
                 Statement st = EKoneksi.getConnection().createStatement();
-                st.executeUpdate("INSERT INTO images (klasifikasi,mean,standard_deviasi,entropy) "
-                        + "VALUES ('"+klsf+"','"+mean+"','"+sd+"','"+entr+"')");
-                        JOptionPane.showMessageDialog(null,"Data Sukses Dimasukkan");
-                    }catch (SQLException e)
-                    {
-                        JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan," + e.toString());
-                    }
+                st.executeUpdate("INSERT INTO klasifikasi "
+                        + "VALUES ('"+name+"')");
+        }catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan," + e.toString());
+        }
     }
     
     public int getLastImgIncrement(){
@@ -187,5 +186,17 @@ public class CKlasifikasi {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public void UpdateClassification(String old, String name) {
+        try
+        {                
+            Statement st = EKoneksi.getConnection().createStatement();
+            st.executeUpdate("UPDATE klasifikasi SET nama_klasifikasi='"
+                    + name + "' WHERE nama_klasifikasi='" + old + "'");
+        }catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan," + e.toString());
+        }
     }
 }

@@ -11,18 +11,25 @@ import javax.swing.JOptionPane;
  *
  * @author Ryan Fadholi
  */
-public class ClassificationAddDialog extends javax.swing.JDialog {
+public class RenameClassificationDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form ClassificationAddDialog
+     * Creates new form RenameClassificationDialog
      */
     CKlasifikasi ck;
-    public ClassificationAddDialog() {
+    String context;
+    
+    public RenameClassificationDialog() {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        this.setModal(true);
         ck = new CKlasifikasi();
+        this.setModal(true);
+    }
+    
+    public void setContext(String name){
+        this.context = name;
+        this.nameLabel.setText(this.context);
     }
 
     /**
@@ -34,27 +41,32 @@ public class ClassificationAddDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        formTitle = new javax.swing.JLabel();
-        clsfNameTxt = new javax.swing.JTextField();
+        oldNameLabel = new javax.swing.JLabel();
+        newNameLabel = new javax.swing.JLabel();
+        insertName = new javax.swing.JTextField();
+        nameLabel = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JButton();
-        okBtn = new javax.swing.JButton();
+        confirmBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        formTitle.setText("Classification name:");
+        oldNameLabel.setText("Current Name :");
+
+        newNameLabel.setText("New Name      :");
+
+        nameLabel.setText("[CLASSIFICATION NAME GOES HERE]");
 
         cancelBtn.setText("Cancel");
-        cancelBtn.setDefaultCapable(false);
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
             }
         });
 
-        okBtn.setText("Confirm");
-        okBtn.addActionListener(new java.awt.event.ActionListener() {
+        confirmBtn.setText("Confirm");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okBtnActionPerformed(evt);
+                confirmBtnActionPerformed(evt);
             }
         });
 
@@ -65,12 +77,16 @@ public class ClassificationAddDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(formTitle)
-                    .addComponent(clsfNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(newNameLabel)
+                    .addComponent(oldNameLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameLabel)
+                    .addComponent(insertName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(okBtn)
+                .addComponent(confirmBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelBtn)
                 .addContainerGap())
@@ -79,14 +95,18 @@ public class ClassificationAddDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(formTitle)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(oldNameLabel)
+                    .addComponent(nameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clsfNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newNameLabel)
+                    .addComponent(insertName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtn)
-                    .addComponent(okBtn))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(confirmBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -96,19 +116,22 @@ public class ClassificationAddDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
-    private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
-        if(this.clsfNameTxt.getText().equals("")){
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        if(this.insertName.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Silahkan isi nama terlebih dahulu.");
         } else {
-            ck.InsertNewClassification(this.clsfNameTxt.getText());
+            ck.UpdateClassification(this.context, this.insertName.getText());
         }
         this.dispose();
-    }//GEN-LAST:event_okBtnActionPerformed
+    }//GEN-LAST:event_confirmBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JTextField clsfNameTxt;
-    private javax.swing.JLabel formTitle;
-    private javax.swing.JButton okBtn;
+    private javax.swing.JButton confirmBtn;
+    private javax.swing.JTextField insertName;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel newNameLabel;
+    private javax.swing.JLabel oldNameLabel;
     // End of variables declaration//GEN-END:variables
 }

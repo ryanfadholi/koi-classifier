@@ -21,6 +21,7 @@ public class ManageDataPage extends javax.swing.JFrame {
     public ManageDataPage() {
         initComponents();
         
+        this.setLocationRelativeTo(null);
         ck = new CKlasifikasi();
         this.resetState();
         
@@ -163,6 +164,11 @@ public class ManageDataPage extends javax.swing.JFrame {
         });
 
         renameClsfBtn.setText("Rename This Classification");
+        renameClsfBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renameClsfBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout crudToolbarLayout = new javax.swing.GroupLayout(crudToolbar);
         crudToolbar.setLayout(crudToolbarLayout);
@@ -238,8 +244,8 @@ public class ManageDataPage extends javax.swing.JFrame {
 
     private void deleteClsfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteClsfBtnActionPerformed
         String context = this.clsfComboBox.getSelectedItem().toString(); 
-        String confirmationMsg = "Apakah anda yakin ingin menghapus klasifikasi " 
-                + context + "?";
+        String confirmationMsg = "Do you really want to delete " 
+                + context + " classification?";
         
            if(CommonFunctions.ConfirmationDialog(confirmationMsg) != 0){
                return;
@@ -250,7 +256,9 @@ public class ManageDataPage extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteClsfBtnActionPerformed
 
     private void addImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageBtnActionPerformed
-        new ImageAddDialog(CommonFunctions.browseImage_bufferedImage()).setVisible(true);
+        String clsf = this.clsfComboBox.getSelectedItem().toString(); 
+        new ImageAddDialog(clsf, CommonFunctions.browseImage_bufferedImage()).setVisible(true);
+        this.refreshImageList(clsf);
     }//GEN-LAST:event_addImageBtnActionPerformed
 
     private void clsfComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clsfComboBoxActionPerformed
@@ -271,11 +279,13 @@ public class ManageDataPage extends javax.swing.JFrame {
     }//GEN-LAST:event_clsfComboBoxActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        this.resetState();
+        this.dispose();
+        new StartupPage().setVisible(true);
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void addClsfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClsfBtnActionPerformed
-        // TODO add your handling code here:
+        new ClassificationAddDialog().setVisible(true);
+        this.resetState();
     }//GEN-LAST:event_addClsfBtnActionPerformed
 
     private void imageTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageTableMouseClicked
@@ -300,8 +310,8 @@ public class ManageDataPage extends javax.swing.JFrame {
         String imageID = this.imageTable.getModel().getValueAt(row, 0).toString();
         String fileDir = CommonFunctions.getImageDir(imageID).toString();
         
-        String confirmationMsg = "Apakah anda yakin ingin menghapus citra " 
-                + fileDir + "?";
+        String confirmationMsg = "Do you really want to delete" 
+                + imageID + "?";
         
         if(CommonFunctions.ConfirmationDialog(confirmationMsg) != 0){
             return;
@@ -314,8 +324,16 @@ public class ManageDataPage extends javax.swing.JFrame {
             this.refreshImageList(this.clsfComboBox.getSelectedItem().toString());
         }
         
+       
            
     }//GEN-LAST:event_deleteImageBtnActionPerformed
+
+    private void renameClsfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renameClsfBtnActionPerformed
+        RenameClassificationDialog rcd = new RenameClassificationDialog();
+        rcd.setContext(this.clsfComboBox.getSelectedItem().toString());
+        rcd.setVisible(true);
+        this.resetState();
+    }//GEN-LAST:event_renameClsfBtnActionPerformed
     
     private void resetState(){
         this.refreshImageList();
