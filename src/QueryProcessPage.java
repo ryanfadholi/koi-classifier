@@ -112,6 +112,7 @@ public class QueryProcessPage extends javax.swing.JFrame {
         imageDir.setMinimumSize(new java.awt.Dimension(298, 37));
         imageDir.setPreferredSize(new java.awt.Dimension(298, 37));
 
+        imagePosLabel.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         imagePosLabel.setText("[DIRECTORY HERE]");
 
         javax.swing.GroupLayout imageDirLayout = new javax.swing.GroupLayout(imageDir);
@@ -192,6 +193,7 @@ public class QueryProcessPage extends javax.swing.JFrame {
         for(DataEuclidean result : euclidResults){
             if(result.getValue() < closestMatch){
                 System.out.println(result.getValue() + " lebih kecil dari " + closestMatch);
+                closestMatch = result.getValue();
                 hasilKlasifikasi = result.getKlasifikasi();
             }
         }

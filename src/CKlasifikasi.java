@@ -54,7 +54,7 @@ public class CKlasifikasi {
                 Statement st = EKoneksi.getConnection().createStatement();
                 st.executeUpdate("DELETE FROM klasifikasi WHERE nama_klasifikasi='"+name+"'");
            
-                JOptionPane.showMessageDialog(null, name + " berhasil dihapus.");
+                JOptionPane.showMessageDialog(null, name + " classification is successfully deleted.");
             }catch (SQLException e)
             {
                 JOptionPane.showMessageDialog(null, e);
@@ -68,7 +68,7 @@ public class CKlasifikasi {
                 Statement st = EKoneksi.getConnection().createStatement();
                 st.executeUpdate("DELETE FROM images WHERE img_url='"+imageID+"'");
            
-                JOptionPane.showMessageDialog(null, "Citra " +imageID+ " berhasil dihapus.");
+                JOptionPane.showMessageDialog(null, "Image " +imageID+ " is successfully deleted.");
             }catch (SQLException e)
             {
                 JOptionPane.showMessageDialog(null, e);
@@ -177,10 +177,10 @@ public class CKlasifikasi {
                 Statement st = EKoneksi.getConnection().createStatement();
                 st.executeUpdate("INSERT INTO images (klasifikasi,mean,standard_deviasi,entropy) "
                         + "VALUES ('"+klsf+"','"+mean+"','"+sd+"','"+entr+"')");
-                        JOptionPane.showMessageDialog(null,"Data Sukses Dimasukkan");
+                        JOptionPane.showMessageDialog(null,"Image sucessfully added.");
                     }catch (SQLException e)
                     {
-                        JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan," + e.toString());
+                        JOptionPane.showMessageDialog(null, "Image failed to load, " + e.toString());
                     }
     }
      
@@ -193,7 +193,7 @@ public class CKlasifikasi {
                         + "VALUES ('"+name+"')");
         }catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan," + e.toString());
+            JOptionPane.showMessageDialog(null, "Unable to add classification, " + e.toString());
         }
     }
     
@@ -221,7 +221,7 @@ public class CKlasifikasi {
                     + name + "' WHERE nama_klasifikasi='" + old + "'");
         }catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan," + e.toString());
+            JOptionPane.showMessageDialog(null, "Update failed, " + e.toString());
         }
     }
 }
