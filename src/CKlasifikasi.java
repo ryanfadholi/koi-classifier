@@ -41,7 +41,7 @@ public class CKlasifikasi {
             {
                 
                 Statement st = EKoneksi.getConnection().createStatement();
-                st.executeUpdate("DELETE FROM klasifikasi WHERE img_url='"+imageID+"'");
+                st.executeUpdate("DELETE FROM images WHERE img_url='"+imageID+"'");
            
                 JOptionPane.showMessageDialog(null, "Citra " +imageID+ " successfully deleted.");
             }catch (SQLException e)

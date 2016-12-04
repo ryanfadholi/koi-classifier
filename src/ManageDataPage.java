@@ -285,11 +285,12 @@ public class ManageDataPage extends javax.swing.JFrame {
         String fileDir = CommonFunctions.getImageDir(imageID).toString();
         
         System.out.println(fileDir);
+        if(CommonFunctions.getImageDir(imageID).exists()){
         this.imageData.setIcon(
                 CommonFunctions.getIconInstance(CommonFunctions.getBufferedImage(fileDir),
                                                 this.imageData.getWidth(), 
                                                 this.imageData.getHeight()));
-        
+        }
         this.deleteImageBtn.setEnabled(true);
     }//GEN-LAST:event_imageTableMouseClicked
 
@@ -306,6 +307,12 @@ public class ManageDataPage extends javax.swing.JFrame {
             return;
         }
         
+        ck.deleteImage(imageID);
+        if(this.clsfComboBox.getSelectedItem().toString().equals("ALL IMAGES")){
+            this.refreshImageList();
+        } else {
+            this.refreshImageList(this.clsfComboBox.getSelectedItem().toString());
+        }
         
            
     }//GEN-LAST:event_deleteImageBtnActionPerformed
